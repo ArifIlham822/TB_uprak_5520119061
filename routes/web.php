@@ -79,12 +79,13 @@ Route::get('admin/product', [App\Http\Controllers\ProductController::class, 'ind
 Route::get('admin/ajax/dataProduct/{id}', [App\Http\Controllers\ProductController::class, 'getDataProduct']);
 
 Route::post('admin/product', [App\Http\Controllers\ProductController::class, 'submit_product'])
-->name('admin.product.submit');
-
+->name('admin.product.submit')
+->middleware('is_admin');
 
 Route::patch('admin/product/update', [App\Http\Controllers\ProductController::class, 'update_product'])
-->name('admin.product.update');
-
+->name('admin.product.update')
+->middleware('is_admin');
 
 Route::delete('admin/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])
-->name('admin.product.delete');
+->name('admin.product.delete')
+->middleware('is_admin');

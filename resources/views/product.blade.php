@@ -211,7 +211,7 @@
                 $('#image-area').empty();
                 $.ajax({
                     type: "get",
-                    url: baseurl+'/ajax/dataProduct/'+id,
+                    url: baseurl+'admin/ajax/dataProduct/'+id,
                     dataType: 'json',
                     success: function(res){
                         $('#edit-id').val(res.id);
