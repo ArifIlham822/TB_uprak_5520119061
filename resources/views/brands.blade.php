@@ -149,9 +149,10 @@
              // update brand
             $(document).on('click', '#btn-edit-brand', function(){
                 let id = $(this).data('id');
+                //alert(baseurl+'/admin/ajaxadmin/databrand/'+id);
                 $.ajax({
                     type: "get",
-                    url: baseurl+'admin/ajaxadmin/databrand/'+id,
+                    url: baseurl+'/admin/ajaxadmin/databrand/'+id,
                     dataType: 'json',
                     success: function(res){
                         $('#edit-id').val(res.id); //harus tambah id

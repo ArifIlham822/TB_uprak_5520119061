@@ -151,7 +151,7 @@
                 let id = $(this).data('id');
                 $.ajax({
                     type: "get",
-                    url: baseurl+'admin/ajaxadmin/databrand/'+id,
+                    url: baseurl+'/admin/ajaxadmin/DataCategories/'+id,
                     dataType: 'json',
                     success: function(res){
                         $('#edit-id').val(res.id); //harus tambah id

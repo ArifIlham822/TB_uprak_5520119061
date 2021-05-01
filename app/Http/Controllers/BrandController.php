@@ -57,17 +57,16 @@ class BrandController extends Controller
     // update brand
     public function update_brand(Request $req)
     {
-        $brands = brand::find($req->get('id'));
+        $brands = Brand::find($req->get('id'));
         $brands->name=$req->get('name');
         $brands->description =$req->get('description');
         $brands->save();
-        $notification = array
-        (
+        $notification = array(
             'message' => 'Data Merek berhasil diubah',
             'alert-type' => 'success'
         );
 
-        return redirect()->route('admin.brand')->with($notification);
+        return redirect()->route('admin.brands')->with($notification);
     }
     
      

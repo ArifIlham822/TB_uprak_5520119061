@@ -20,7 +20,9 @@ class CreateProductsTable extends Migration
             $table->foreignId('brands_id')->constrained();
             $table->foreignId('categories_id')->constrained();
             $table->string('photo');
-            $table->timestamps();
+            $table->timestamps('created_at');
+            $table->timestamps('updated_at');
+            
         });
     }
 

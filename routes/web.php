@@ -75,17 +75,55 @@ Route::delete('admin/categories/delete', [App\Http\Controllers\CategorieControll
 
 
 // pengelolaan Product
-Route::get('admin/product', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('admin/product', [App\Http\Controllers\ProductController::class, 'index'])
+->name('admin.product')
+->middleware('is_admin');
+
 Route::get('admin/ajax/dataProduct/{id}', [App\Http\Controllers\ProductController::class, 'getDataProduct']);
 
+//penambahan product
 Route::post('admin/product', [App\Http\Controllers\ProductController::class, 'submit_product'])
 ->name('admin.product.submit')
 ->middleware('is_admin');
 
+//edit product
 Route::patch('admin/product/update', [App\Http\Controllers\ProductController::class, 'update_product'])
 ->name('admin.product.update')
 ->middleware('is_admin');
 
+//delete prodct
 Route::delete('admin/product/delete', [App\Http\Controllers\ProductController::class, 'delete_product'])
 ->name('admin.product.delete')
 ->middleware('is_admin');
+
+
+// pengelolaan User
+Route::get('admin/user', [App\Http\Controllers\UserController::class, 'users'])
+->name('admin.users')
+->middleware('is_admin');
+
+Route::get('admin/ajax/dataUser/{id}', [App\Http\Controllers\UserController::class, 'getDataUser']);
+
+//penambahan User
+Route::post('admin/user', [App\Http\Controllers\UserController::class, 'submit_user'])
+->name('admin.user.submit')
+->middleware('is_admin');
+
+//edit User
+Route::patch('admin/user/update', [App\Http\Controllers\UserController::class, 'update_user'])
+->name('admin.user.update')
+->middleware('is_admin');
+
+//delete User
+Route::delete('admin/user/delete', [App\Http\Controllers\UserController::class, 'delete_user'])
+->name('admin.user.delete')
+->middleware('is_admin');
+
+//laporan masuk
+Route::get('admin/Lp', [App\Http\Controllers\LpController::class, 'index']);
+
+Route::get('admin/print_Lp', [App\Http\Controllers\LpController::class, 'print_Lp'])
+->name('admin.print.Lp');
+/*Route::get('admin/Lp', [App\Http\Controllers\LpController::class, 'lp'])
+->name('admin.lp')
+->middleware('is_admin');*/

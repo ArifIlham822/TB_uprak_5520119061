@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Pengelolaan Product</h1>
+    <h1>Laporan Barang Masuk</h1>
 @stop
 
 @section('content')
@@ -11,10 +11,10 @@
         <div class="row justifly-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Pengelolaan Product') }}</div>
+                    <div class="card-header">{{ __('Laporan Barang Masuk') }}</div>
 
                     <div class="card-body">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#tambahProductModal"><i class="fa fa-plus"></i>Tambah Data</button>
+                        <a href="{{ route('admin.print.Lp') }}" target="_blank" class="btn btn-secondary"><i class="fa fa-print"></i> Cetak PDF</a>
                         <hr/>
                         <table id="table-data" class="table table-borderer">
                             <thead>
@@ -25,7 +25,9 @@
                                     <th>MEREK</th>
                                     <th>KATEGORI</th>
                                     <th>PHOTO</th>
-                                    <th>AKSI</th>
+                                    <th>tanggal buat</th>
+                                    <th>tanggal update</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,20 +37,16 @@
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{{ $product->qty }}</td>
-                                        <td>{{ $product->brands->name }}</td>
-                                        <td>{{ $product->categories->name }}</td>
+                                        <td>{{ $product->bname }}</td>
+                                        <td>{{ $product->cname }}</td>
+                                        <td>{{ $product->created_at }}</td>
+                                        <td>{{ $product->updated_at }}</td>
                                         <td>
                                             @if ($product->photo !== null)
                                                 <img src="{{ asset('storage/photo_product/'.$product->photo) }}" width="100px">
                                             @else
                                                 [Gambar tidak tersedia]
                                             @endif
-                                        </td>
-                                        <td>
-                                            <div class="btn-group" role="group" aria-label="basic example">
-                                                <button type="button" id="btn-edit-product" class="btn btn-success" data-toggle="modal" data-target="#editProductModal" data-id="{{ $product->id }}">Edit</button>
-                                                <button type="button" id="btn-delete-product" class="btn btn-danger" data-toggle="modal" data-target="#deleteProductModal" data-id="{{ $product->id }}">Hapus</button>
-                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -61,7 +59,7 @@
     </div>
 
     {{-- Tambah Data --}}
-    <div class="modal fade" id="tambahProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="tambahProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -109,10 +107,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- Edit Data --}}
-    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -170,10 +168,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     {{-- delete data brand --}}
-    <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- <div class="modal fade" id="deleteProductModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -196,7 +194,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @stop
 
 @section('css')
@@ -205,34 +203,34 @@
 
 @section('js')
     <script>
-        $(function(){
-            $(document).on('click', '#btn-edit-product', function(){
-                let id = $(this).data('id');
-                $('#image-area').empty();
-                $.ajax({
-                    type: "get",
-                    url: baseurl+'/admin/ajax/dataProduct/'+id,
-                    dataType: 'json',
-                    success: function(res){
-                        $('#edit-id').val(res.id);
-                        $('#edit-name').val(res.name);
-                        $('#edit-qty').val(res.qty);
-                        $('#edit-brands_id').val(res.brands_id);
-                        $('#edit-categories_id').val(res.categories_id);
-                        $('#edit-old-photo').val(res.photo);
-                        if (res.cover !== null){
-                            // $('image-area').append("<img src='" + baseurl + "/storage/photo_product/" + res.photo + "' width='200px'>");
-                            $('#image-area').append(`<img src="${baseurl}/storage/photo_product/${res.photo}" width="200px"/>`);
-                        } else {
-                            $('#image-area').append('[Gambar tidak Tersedia]');
-                        }
-                    }
-                })
-            })
-        })
-        $(document).on('click', '#btn-delete-product', function(){
-            let id = $(this).data('id');
-            $('#delete-id').val(id);
-        });
+        // $(function(){
+        //     $(document).on('click', '#btn-edit-product', function(){
+        //         let id = $(this).data('id');
+        //         $('#image-area').empty();
+        //         $.ajax({
+        //             type: "get",
+        //             url: baseurl+'/admin/ajax/dataProduct/'+id,
+        //             dataType: 'json',
+        //             success: function(res){
+        //                 $('#edit-id').val(res.id);
+        //                 $('#edit-name').val(res.name);
+        //                 $('#edit-qty').val(res.qty);
+        //                 $('#edit-brands_id').val(res.brands_id);
+        //                 $('#edit-categories_id').val(res.categories_id);
+        //                 $('#edit-old-photo').val(res.photo);
+        //                 if (res.cover !== null){
+        //                     // $('image-area').append("<img src='" + baseurl + "/storage/photo_product/" + res.photo + "' width='200px'>");
+        //                     $('#image-area').append(`<img src="${baseurl}/storage/photo_product/${res.photo}" width="200px"/>`);
+        //                 } else {
+        //                     $('#image-area').append('[Gambar tidak Tersedia]');
+        //                 }
+        //             }
+        //         })
+        //     })
+        // })
+        // $(document).on('click', '#btn-delete-product', function(){
+        //     let id = $(this).data('id');
+        //     $('#delete-id').val(id);
+        // });
     </script>
 @stop 

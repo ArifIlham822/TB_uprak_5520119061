@@ -24,13 +24,13 @@ class CategorieController extends Controller
     public function categories()
     {
         $user =Auth::user();
-        $categories =categorie::all();
+        $categories =Categorie::all();
         return view('categories', compact('user', 'categories'));
     }
    
     public function submit_categories(Request $request)
     {
-        $categories= new categorie();
+        $categories= new Categorie();
         $categories->name = $request->get('name');
         $categories->description = $request->get('description');
 
@@ -47,28 +47,33 @@ class CategorieController extends Controller
 
     public function update_categorie(Request $req)
     {
-        $categories = categorie::find($req->get('id'));
+        $categories = Categorie::find($req->get('id'));
 
         $categories ->name =$req->get('name');
         $categories ->description = $req->get('description');
 
         $categories->save();
 
-        return redirect()->route('admin.categories')->with($notification);
+        return redirect()->route('admin.categories')->with(
+            array(
+                'message' => 'Data berhasil ditambahkan',
+                'alert-type' => 'success'
+            )
+        );
     }
 
     
     public function getdataCate($id)
     {
-        $cate= categories::find($id);
+        $categories= Categorie::find($id);
 
-        return response()->json($cate);
+        return response()->json($categories);
     }
     
     //delete
     public function delete_categorie(Request $req)
     {
-        $categories = categorie::find($req->id);
+        $categories = Categorie::find($req->id);
         $categories->delete();
      
         $notification = array(

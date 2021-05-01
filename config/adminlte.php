@@ -225,6 +225,20 @@ return [
 
     'menu' => [
         [
+            'text' =>'laporan masuk',
+            'url'  =>'admin/Lp',
+            'icon' =>'fas fa-fw fa-book',
+            
+            
+        ],
+        [
+            'text' =>'user',
+            'url'  =>'admin/user',
+            'icon' =>'fas fa-fw fa-book',
+            
+            
+        ],
+        [
             'text' =>'product',
             'url'  =>'admin/product',
             'icon' =>'fas fa-fw fa-book',
